@@ -1,0 +1,7 @@
+requests
+weaviate
+weaviate-client
+openai
+fastapi
+uvicorn
+pydantic
