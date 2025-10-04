@@ -2,7 +2,8 @@ import streamlit as st
 import requests
 
 # Adjust this if backend runs elsewhere
-BACKEND_URL = "http://127.0.0.1:8080/query"
+BACKEND_URL = "http://127.0.0.1:8081/query"
+#BACKEND_URL = "/api/query"
 
 st.set_page_config(page_title="Tamil Nadu Bye-laws Q&A", layout="wide")
 st.title("🏢 Tamil Nadu Apartment Bye-laws Q&A")

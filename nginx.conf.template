@@ -1,0 +1,32 @@
+worker_processes 1;
+events { worker_connections 1024; }
+
+http {
+    server {
+        listen ${PORT};
+
+        # Root redirect to Streamlit app
+        location = / {
+            return 302 /app/;
+        }
+
+        # Health endpoint proxied to the internal healthcheck which verifies backend & streamlit
+        location = /health {
+            proxy_pass http://127.0.0.1:8090/;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+        }
+
+        location /api/ {
+            proxy_pass http://127.0.0.1:8081/;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+        }
+
+        location /app/ {
+            proxy_pass http://127.0.0.1:8501/;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+        }
+    }
+}
