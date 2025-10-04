@@ -35,6 +35,9 @@ class QueryResponse(BaseModel):
     sources: list
     confidence: float
 
+@app.get("/")
+async def root():
+    return {"message": "Backend is running."}
 
 @app.get("/health")
 async def health():
