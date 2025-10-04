@@ -35,7 +35,7 @@ class QueryResponse(BaseModel):
     sources: list
     confidence: float
 
-@app.get("/")
+@app.api_route("/", methods=["GET", "HEAD"])
 async def root():
     return {"message": "Backend is running."}
 
