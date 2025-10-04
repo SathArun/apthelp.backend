@@ -1,7 +1,7 @@
 FROM python:3.11-slim-bookworm
 
-# Install system deps
-RUN apt-get update && apt-get install -y curl build-essential supervisor && apt-get upgrade -y && apt-get clean && rm -rf /var/lib/apt/lists/*
+# Install system deps and nginx
+RUN apt-get update && apt-get install -y curl build-essential supervisor nginx && apt-get upgrade -y && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Set workdir
 WORKDIR /app
@@ -14,7 +14,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY backend backend
 COPY frontend frontend
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 
-EXPOSE 8080
+EXPOSE 80
 
 CMD ["/usr/bin/supervisord"]
